@@ -1,5 +1,5 @@
 # python-sudoku-22
-Sudoku mit Interprozesskommunikation - BSRN Werkstueck SS22
+Sudoku mit Interprozesskommunikation - BSRN Werkstueck A SS22
 
 
 
