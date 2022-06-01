@@ -31,7 +31,7 @@ def solve() :
 
                     return
 
-#numbers here is a list with sudoku, for example:
+#beispiel:
 
 sudoku = [
 [0, 0, 6, 0, 5, 4, 9, 0, 0],
@@ -44,7 +44,7 @@ sudoku = [
 [9, 0, 0, 8, 0, 0, 0, 5, 0],
 [0, 0, 0, 4, 0, 0, 3, 0, 7]
 ]
-#And this is my output for this list:
+#output:
 
 [2, 3, 6, 8, 5, 4, 9, 1, 7]
 [1, 8, 9, 5, 6, 7, 0, 4, 2]
