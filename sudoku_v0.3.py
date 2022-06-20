@@ -143,13 +143,6 @@ def printsudokubox2():
                     print("\u001b[32m"+str(s1[i][z])+"\033[0m","",end="")
                 
 
-Spieler1name = input("Name des 1. Spielers eingeben: ")
-Spieler2name = input("Name des 2. Spielers eingeben: ")
-
-auslesenUNDerstellen()
-zeitmessung_anfang_spieler1 = datetime.datetime.now()
-zeitmessung_anfang_spieler2 = zeitmessung_anfang_spieler1
-
 #Funktion um Zahl ins ausgewähltes Feld einzutragen
 def Spieler1():
     print("\u001b[34;1m"+Spieler1name+"\033[0m","ist dran!")
@@ -205,7 +198,7 @@ def Spieler1():
             break
 
         if zeile < 1 or zeile > 9 or spalte < 1 or spalte > 9:
-            print("\u001b[31;1m"+"Bitte Zahl zwischen 1 und 9 eingeben"+"\033[0m")
+            print("\u001b[31;1m"+"Bitte Zahl zwischen 1 und 9 eingeben."+"\033[0m")
             Spieler1()
             
         if dataX[zeile][spalte]==0:
@@ -257,13 +250,13 @@ def Spieler2():
                     else:
                         Spieler1()
                 else:
-                    print("\u001b[31;1m"+"Bitte Zahl zwischen 1 und 9 eingeben"+"\033[0m")
+                    print("\u001b[31;1m"+"Bitte Zahl zwischen 1 und 9 eingeben."+"\033[0m")
                     Spieler2()
             else:
                 print("\u001b[31;1m"+"Falsche Zahl"+"\033[0m")
                 Spieler1()
         else:
-            print("\u001b[31;1m"+"Vorgegebene Zahlen dürfen nicht verändert werden"+"\033[0m")
+            print("\u001b[31;1m"+"Vorgegebene Zahlen dürfen nicht verändert werden!"+"\033[0m")
             print("\u001b[31;1m"+"Versuche ein leeres Feld"+"\033[0m")
             Spieler2()
     elif auswahl == 2:
@@ -298,17 +291,22 @@ def Spieler2():
 def sudokugewonnen(x):
     if x == 1:
         zeitmessung_ende_spieler1 = datetime.datetime.now()
-        print("\033[1;92m"+Spieler1name,"hat GEWONNEN und dafür",round(timedelta.total_seconds(zeitmessung_ende_spieler1-zeitmessung_anfang_spieler1)),"Sekunden gebraucht!")
-        print("\033[42m"+Spieler1name,"hat GEWONNEN und dafür",round(timedelta.total_seconds(zeitmessung_ende_spieler1-zeitmessung_anfang_spieler1)),"Sekunden gebraucht!"+"\033[0m")
-        print("\033[1;92m"+Spieler1name,"hat GEWONNEN und dafür",round(timedelta.total_seconds(zeitmessung_ende_spieler1-zeitmessung_anfang_spieler1)),"Sekunden gebraucht!")
-        
+        print("\033[1;96m"+"##############################################")
+        print("\033[1;96m"+Spieler1name,"HAT GEWONNEN und dafür",round(timedelta.total_seconds(zeitmessung_ende_spieler1-zeitmessung_anfang_spieler1)),"Sekunden gebraucht!")
+        print("\033[1;96m"+"##############################################")
 
     else:
         zeitmessung_ende_spieler2 = datetime.datetime.now()
-        print("\033[1;92m"+Spieler2name,"hat GEWONNEN und dafür",round(timedelta.total_seconds(zeitmessung_ende_spieler2-zeitmessung_anfang_spieler2)),"Sekunden gebraucht!")
-        print("\033[42m"+Spieler2name,"hat GEWONNEN und dafür",round(timedelta.total_seconds(zeitmessung_ende_spieler2-zeitmessung_anfang_spieler2)),"Sekunden gebraucht!"+"\033[0m")
-        print("\033[1;92m"+Spieler2name,"hat GEWONNEN und dafür",round(timedelta.total_seconds(zeitmessung_ende_spieler2-zeitmessung_anfang_spieler2)),"Sekunden gebraucht!")
+        print("\033[1;96m"+"##############################################")
+        print("\033[1;96m"+Spieler2name,"HAT GEWONNEN und dafür",round(timedelta.total_seconds(zeitmessung_ende_spieler2-zeitmessung_anfang_spieler2)),"Sekunden gebraucht!")
+        print("\033[1;96m"+"##############################################")
 
+
+Spieler1name = input("Name des 1. Spielers eingeben: ")
+Spieler2name = input("Name des 2. Spielers eingeben: ")
+auslesenUNDerstellen()
+zeitmessung_anfang_spieler1 = datetime.datetime.now()
+zeitmessung_anfang_spieler2 = zeitmessung_anfang_spieler1
 Spieler1()
 
 
