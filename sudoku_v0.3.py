@@ -4,7 +4,7 @@ import datetime
 from datetime import timedelta
 import time
 
-os.system("cls") #BEACHTEN!!!!!!!! WENN WINDOWS DANN "cls" WENN LINUX DANN "clear"
+os.system("cls") #BEACHTEN!!!!!!!! WENN WINDOWS DANN os.system("cls") WENN LINUX DANN os.system("clear")
 
 #initialisiert leeres 9x9 SudokuFeld für Spieler1
 s1zeile1 = [0,0,0,0,0,0,0,0,0]
