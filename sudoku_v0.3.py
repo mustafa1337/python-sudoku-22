@@ -1,5 +1,8 @@
 import random
 import os
+import datetime
+from datetime import timedelta
+import time
 
 os.system("cls") #BEACHTEN!!!!!!!! WENN WINDOWS DANN "cls" WENN LINUX DANN "clear"
 
@@ -36,16 +39,17 @@ def auslesenUNDerstellen():
             s1[i][z] = data[i][z]
     while True:
         try:
-            abfrage = int(input("Wieviele Felder sollen entfernt werden?"))
+            abfrage = int(input("Wieviele Felder sollen entfernt werden? 1-81 "))
         except ValueError:
-            print("Bitte nur Zahlen eingeben")
+            print("\u001b[31;1m"+"Bitte nur Zahlen eingeben!"+"\033[0m")
             continue
         break
 
-    if abfrage > 81 or abfrage < 0:
-        print("Eingabe ungültig")
+    if abfrage > 81 or abfrage < 1:
+        print("\u001b[31;1m"+"Eingabe ungültig!"+"\033[0m")
+        abfrage = 0
         auslesenUNDerstellen()
-
+    
     counterabfrage=0
     while counterabfrage < abfrage:
         x1 = random.randint(0,8)
@@ -53,19 +57,9 @@ def auslesenUNDerstellen():
         if s1[x1][x2] != 0:
             s1[x1][x2]=0
             counterabfrage = counterabfrage +1
-
     for i in range (9):
         for z in range (9):
             dataX[i][z] = s1[i][z]
-            
-#def generateSudoku():
- #   for i in range(0,9):
-  #      for z in range(0,9):
-   #         if s1[i][z]==0:
-    #            zrand = random.randint(1,9)
-     #           if kontrolleFeld(i,z,zrand):
-      #              s1[i][z]=zrand
-       #             generateSudoku()
                 
 def checkSudokuBox(grid):  
     for row in range(0,9):
@@ -149,11 +143,12 @@ def printsudokubox2():
                     print("\u001b[32m"+str(s1[i][z])+"\033[0m","",end="")
                 
 
-Spieler1name = input("Name des 1. Spielers eingeben:")
-Spieler2name = input("Name des 2. Spielers eingeben:")
+Spieler1name = input("Name des 1. Spielers eingeben: ")
+Spieler2name = input("Name des 2. Spielers eingeben: ")
 
 auslesenUNDerstellen()
-
+zeitmessung_anfang_spieler1 = datetime.datetime.now()
+zeitmessung_anfang_spieler2 = zeitmessung_anfang_spieler1
 
 #Funktion um Zahl ins ausgewähltes Feld einzutragen
 def Spieler1():
@@ -161,7 +156,7 @@ def Spieler1():
     printsudokubox2()
     while True:
         try:
-            auswahl = int(input("Was möchten Sie tun?\n1.Zahl eintragen\n2.Zahl löschen\n3.Passen\n4.Aufgeben"))
+            auswahl = int(input("Was möchten Sie tun?\n1.Zahl eintragen\n2.Zahl löschen\n3.Passen\n4.Aufgeben "))
         except ValueError:
             print("\u001b[31;1m"+"Bitte nur Zahlen zwischen 1-4 eingeben"+"\033[0m")
             continue
@@ -169,13 +164,17 @@ def Spieler1():
     if auswahl == 1:
         while True:
             try:
-                zeile = int(input("welche zeile? 1-9")) -1
-                spalte = int(input("welche spalte? 1-9")) -1
-                eingabezahl = int(input("welche zahl 1-9"))
+                zeile = int(input("Welche Zeile? 1-9 ")) -1
+                spalte = int(input("Welche Spalte? 1-9 ")) -1
+                eingabezahl = int(input("Welche Zahl 1-9 "))
             except ValueError:
                 print("\u001b[31;1m"+"Bitte nur Zahlen eingeben"+"\033[0m")
                 continue
             break
+        if zeile < 1 or zeile > 9 or spalte < 1 or spalte > 9:
+            print("\u001b[31;1m"+"Bitte Zahl zwischen 1 und 9 eingeben"+"\033[0m")
+            Spieler1()
+
         if s1[zeile][spalte] ==0:
             if kontrolleFeld(zeile,spalte,eingabezahl)==True:
                 if eingabezahl > 0 and eingabezahl < 10:
@@ -192,19 +191,23 @@ def Spieler1():
                 print("\u001b[31;1m"+"Falsche Zahl"+"\033[0m")
                 Spieler2()
         else:
-            print("\u001b[31;1m"+"Vorgegebene Zahlen dürfen nicht verändert werden"+"\033[0m")
+            print("\u001b[31;1m"+"Vorgegebene Zahlen dürfen nicht verändert werden!"+"\033[0m")
             print("\u001b[31;1m"+"Versuche ein leeres Feld"+"\033[0m")
             Spieler1()
     elif auswahl == 2:
         while True:
             try:
-                zeile = int(input("welche zeile? 1-9")) -1
-                spalte = int(input("welche spalte? 1-9")) -1
+                zeile = int(input("Welche zeile? 1-9 ")) -1
+                spalte = int(input("Welche spalte? 1-9 ")) -1
             except ValueError:
                 print("\u001b[31;1m"+"Bitte nur Zahlen eingeben!"+"\033[0m")
                 continue
             break
 
+        if zeile < 1 or zeile > 9 or spalte < 1 or spalte > 9:
+            print("\u001b[31;1m"+"Bitte Zahl zwischen 1 und 9 eingeben"+"\033[0m")
+            Spieler1()
+            
         if dataX[zeile][spalte]==0:
                 s1[zeile][spalte]=0
                 Spieler1()
@@ -212,7 +215,7 @@ def Spieler1():
             print("\u001b[31;1m"+"Vorgegebene Zahlen dürfen nicht gelöscht werden!"+"\033[0m")
             Spieler1()
     elif auswahl == 3:
-        print("Du übergibst dein Zug an ",Spieler2name)
+        print("Du übergibst dein Zug an",Spieler2name)
         Spieler2()
     elif auswahl == 4:
         sudokugewonnen(2)
@@ -233,13 +236,17 @@ def Spieler2():
     if auswahl == 1:
         while True:
             try:
-                zeile = int(input("welche zeile? 1-9")) -1
-                spalte = int(input("welche spalte? 1-9")) -1
-                eingabezahl = int(input("welche zahl 1-9"))
+                zeile = int(input("Welche Zeile? 1-9 ")) -1
+                spalte = int(input("Welche Spalte? 1-9 ")) -1
+                eingabezahl = int(input("Welche Zahl 1-9 "))
             except ValueError:
-                print("\u001b[31;1m"+"Bitte nur Zahlen eingeben"+"\033[0m")
+                print("\u001b[31;1m"+"Bitte nur Zahlen von 1-9 eingeben"+"\033[0m")
                 continue
             break
+        if zeile < 1 or zeile > 9 or spalte < 1 or spalte > 9:
+            print("\u001b[31;1m"+"Bitte Zahl zwischen 1 und 9 eingeben"+"\033[0m")
+            Spieler2()
+
         if s1[zeile][spalte] ==0:
             if kontrolleFeld(zeile,spalte,eingabezahl)==True:
                 if eingabezahl > 0 and eingabezahl < 10:
@@ -262,12 +269,15 @@ def Spieler2():
     elif auswahl == 2:
         while True:
             try:
-                zeile = int(input("welche zeile? 1-9")) -1
-                spalte = int(input("welche spalte? 1-9")) -1
+                zeile = int(input("Welche Zeile? 1-9 ")) -1
+                spalte = int(input("Welche Spalte? 1-9 ")) -1
             except ValueError:
                 print("\u001b[31;1m"+"Bitte nur Zahlen eingeben!"+"\033[0m")
                 continue
             break
+        if zeile < 1 or zeile > 9 or spalte < 1 or spalte > 9:
+            print("\u001b[31;1m"+"Bitte Zahl zwischen 1 und 9 eingeben"+"\033[0m")
+            Spieler2()
 
         if dataX[zeile][spalte]==0:
                 s1[zeile][spalte]=0
@@ -276,7 +286,7 @@ def Spieler2():
             print("\u001b[31;1m"+"Vorgegebene Zahlen dürfen nicht gelöscht werden!"+"\033[0m")
             Spieler2()
     elif auswahl == 3:
-        print("Du übergibst dein Zug an ",Spieler2name)
+        print("Du übergibst dein Zug an",Spieler2name)
         Spieler1()
     elif auswahl == 4:
         sudokugewonnen(1)
@@ -287,16 +297,21 @@ def Spieler2():
 
 def sudokugewonnen(x):
     if x == 1:
-        print(Spieler1name," hat gewonnen")
+        zeitmessung_ende_spieler1 = datetime.datetime.now()
+        print("\033[1;92m"+Spieler1name,"hat GEWONNEN und dafür",round(timedelta.total_seconds(zeitmessung_ende_spieler1-zeitmessung_anfang_spieler1)),"Sekunden gebraucht!")
+        print("\033[42m"+Spieler1name,"hat GEWONNEN und dafür",round(timedelta.total_seconds(zeitmessung_ende_spieler1-zeitmessung_anfang_spieler1)),"Sekunden gebraucht!"+"\033[0m")
+        print("\033[1;92m"+Spieler1name,"hat GEWONNEN und dafür",round(timedelta.total_seconds(zeitmessung_ende_spieler1-zeitmessung_anfang_spieler1)),"Sekunden gebraucht!")
+        
+
     else:
-        print(Spieler2name," hat gewonnen!")
+        zeitmessung_ende_spieler2 = datetime.datetime.now()
+        print("\033[1;92m"+Spieler2name,"hat GEWONNEN und dafür",round(timedelta.total_seconds(zeitmessung_ende_spieler2-zeitmessung_anfang_spieler2)),"Sekunden gebraucht!")
+        print("\033[42m"+Spieler2name,"hat GEWONNEN und dafür",round(timedelta.total_seconds(zeitmessung_ende_spieler2-zeitmessung_anfang_spieler2)),"Sekunden gebraucht!"+"\033[0m")
+        print("\033[1;92m"+Spieler2name,"hat GEWONNEN und dafür",round(timedelta.total_seconds(zeitmessung_ende_spieler2-zeitmessung_anfang_spieler2)),"Sekunden gebraucht!")
 
 Spieler1()
 
 
-#70% FERTIG
+#90% FERTIG
 #to-dolist
-#Timer sobald Sudoku geladen wurde bis es gelöst wird
-#Wenn jemand das Sudoku gelöst hat soll es grafisch erkennbar sein
 #INTERPROZESSKOMMUNIKATION
-
