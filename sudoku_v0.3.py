@@ -30,9 +30,11 @@ dataX=[ #initialisiert dataX 2D-Liste damit später erstelltes Sudoku abgespeich
 ]
 
 def auslesenUNDerstellen():
-    fp = open('sudoku1.txt')
+    sudokutxt = ['sudoku1.txt','sudoku2.txt'] #txt files mit fertigen sudokus
+    fp = open(random.choice(sudokutxt)) #wählt zufällige textdatei aus zum auslesen
     lines = fp.readlines()
     data = [[int(v) for v in line.split()] for line in lines]
+    fp.close
     
     for i in range (9):
         for z in range (9):
@@ -164,7 +166,7 @@ def Spieler1():
                 print("\u001b[31;1m"+"Bitte nur Zahlen eingeben"+"\033[0m")
                 continue
             break
-        if zeile < 1 or zeile > 9 or spalte < 1 or spalte > 9:
+        if zeile < 0 or zeile > 8 or spalte < 0 or spalte > 8:
             print("\u001b[31;1m"+"Bitte Zahl zwischen 1 und 9 eingeben"+"\033[0m")
             Spieler1()
 
@@ -197,7 +199,7 @@ def Spieler1():
                 continue
             break
 
-        if zeile < 1 or zeile > 9 or spalte < 1 or spalte > 9:
+        if zeile < 0 or zeile > 8 or spalte < 0 or spalte > 8:
             print("\u001b[31;1m"+"Bitte Zahl zwischen 1 und 9 eingeben."+"\033[0m")
             Spieler1()
             
@@ -236,7 +238,7 @@ def Spieler2():
                 print("\u001b[31;1m"+"Bitte nur Zahlen von 1-9 eingeben"+"\033[0m")
                 continue
             break
-        if zeile < 1 or zeile > 9 or spalte < 1 or spalte > 9:
+        if zeile < 0 or zeile > 8 or spalte < 0 or spalte > 8:
             print("\u001b[31;1m"+"Bitte Zahl zwischen 1 und 9 eingeben"+"\033[0m")
             Spieler2()
 
@@ -268,7 +270,7 @@ def Spieler2():
                 print("\u001b[31;1m"+"Bitte nur Zahlen eingeben!"+"\033[0m")
                 continue
             break
-        if zeile < 1 or zeile > 9 or spalte < 1 or spalte > 9:
+        if zeile < 0 or zeile > 8 or spalte < 0 or spalte > 8:
             print("\u001b[31;1m"+"Bitte Zahl zwischen 1 und 9 eingeben"+"\033[0m")
             Spieler2()
 
@@ -291,22 +293,22 @@ def Spieler2():
 def sudokugewonnen(x):
     if x == 1:
         zeitmessung_ende_spieler1 = datetime.datetime.now()
-        print("\033[1;96m"+"##############################################")
+        print("\033[1;96m"+"###############################################")
         print("\033[1;96m"+Spieler1name,"HAT GEWONNEN und dafür",round(timedelta.total_seconds(zeitmessung_ende_spieler1-zeitmessung_anfang_spieler1)),"Sekunden gebraucht!")
-        print("\033[1;96m"+"##############################################")
+        print("\033[1;96m"+"###############################################")
 
     else:
         zeitmessung_ende_spieler2 = datetime.datetime.now()
-        print("\033[1;96m"+"##############################################")
+        print("\033[1;96m"+"###############################################")
         print("\033[1;96m"+Spieler2name,"HAT GEWONNEN und dafür",round(timedelta.total_seconds(zeitmessung_ende_spieler2-zeitmessung_anfang_spieler2)),"Sekunden gebraucht!")
-        print("\033[1;96m"+"##############################################")
+        print("\033[1;96m"+"###############################################")
 
 
 Spieler1name = input("Name des 1. Spielers eingeben: ")
 Spieler2name = input("Name des 2. Spielers eingeben: ")
 auslesenUNDerstellen()
 zeitmessung_anfang_spieler1 = datetime.datetime.now()
-zeitmessung_anfang_spieler2 = zeitmessung_anfang_spieler1
+zeitmessung_anfang_spieler2 = zeitmessung_anfang_spieler1  
 Spieler1()
 
 
