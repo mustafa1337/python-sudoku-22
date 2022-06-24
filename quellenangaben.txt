@@ -1,0 +1,8 @@
+https://de.wikipedia.org/wiki/Sudoku
+https://github.com/chrischma/ProgrammierenMitChris/blob/master/stopwatch.py
+https://docs.python.org/3/library/datetime.html
+https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing
+https://gist.github.com/vratiu/9780109
+https://gist.github.com/richardbwest/17674f84961e975d47cf106da9728dd2#file-demo1-py-L30
+https://de.wikipedia.org/wiki/ANSI-Escapesequenz
+https://www.youtube.com/watch?v=Srf_uSYjKpU
