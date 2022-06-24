@@ -32,28 +32,28 @@ dataX=[ #initialisiert dataX 2D-Liste damit später erstelltes Sudoku abgespeich
 def auslesenUNDerstellen():
     sudokutxt = ['sudoku1.txt','sudoku2.txt'] #txt files mit fertigen sudokus
     fp = open(random.choice(sudokutxt)) #wählt zufällige textdatei aus zum auslesen
-    lines = fp.readlines()
-    data = [[int(v) for v in line.split()] for line in lines]
+    lines = fp.readlines() 
+    data = [[int(v) for v in line.split()] for line in lines] #speichert jede zahl in eine data Liste
     fp.close
     
     for i in range (9):
         for z in range (9):
-            s1[i][z] = data[i][z]
+            s1[i][z] = data[i][z] #erstellt eine sudokuliste zum spielen
     while True:
         try:
-            abfrage = int(input("Wieviele Felder sollen entfernt werden? 1-81 "))
+            abfrage = int(input("Wieviele Felder sollen entfernt werden? 1-81 ")) 
         except ValueError:
             print("\u001b[31;1m"+"Bitte nur Zahlen eingeben!"+"\033[0m")
             continue
         break
 
-    if abfrage > 81 or abfrage < 1:
+    if abfrage > 81 or abfrage < 1: #damit das programm nicht abstürzt
         print("\u001b[31;1m"+"Eingabe ungültig!"+"\033[0m")
         abfrage = 0
-        auslesenUNDerstellen()
+        auslesenUNDerstellen() #funktion startet von neu
     
     counterabfrage=0
-    while counterabfrage < abfrage:
+    while counterabfrage < abfrage: #solange der counter unter abfrage ist wird wiederholt bzw. felder entfernt
         x1 = random.randint(0,8)
         x2 = random.randint(0,8)
         if s1[x1][x2] != 0:
@@ -61,9 +61,9 @@ def auslesenUNDerstellen():
             counterabfrage = counterabfrage +1
     for i in range (9):
         for z in range (9):
-            dataX[i][z] = s1[i][z]
+            dataX[i][z] = s1[i][z] #die jetztige liste wo felder entfernt wurden werden nochmal in einer anderen liste gespeichert um später zu schauen welche felder anfangs vorgegeben waren 
                 
-def checkSudokuBox(grid):  
+def checkSudokuBox(grid):   #checkt ob das sudoku schon vollständig ausgefüllt ist -> sudoku ist fertig -> es gibt ein gewinner
     for row in range(0,9):
      for col in range(0,9):
         if grid[row][col]==0:
@@ -80,35 +80,35 @@ def kontrolleFeld(x,y,zahl):
         if zahl == s1[i][y] or zahl == s1[x][i]:
             tempvar = False
 
-    #kontrolliert die blöcke (3x3)
-    if x == 0 or x == 3 or x == 6:
-        if y == 0 or y == 3 or y == 6:
+    #kontrolliert die restlichen 4 leeren Felder im Block des zu kontrollierenden Zahls
+    if x == 0 or x == 3 or x == 6: #wenn sich zahl ganz oben im block befindet
+        if y == 0 or y == 3 or y == 6: #wenn sich zahl oben im block und ganz links befindet
             if s1[x+1][y+1] == zahl or s1[x+1][y+2] == zahl or s1[x+2][y+1] == zahl or s1[x+2][y+2] == zahl:
                 tempvar = False
-        if y == 1 or y == 4 or y == 7:
+        if y == 1 or y == 4 or y == 7: #oben und mitte
             if s1[x+1][y-1] == zahl or s1[x+2][y-1] == zahl or s1[x+1][y+1] == zahl or s1[x+2][y+1] == zahl:
                 tempvar = False
-        if y == 2 or y == 5 or y == 8:
+        if y == 2 or y == 5 or y == 8: #oben und rechts
             if s1[x+1][y-1] == zahl or s1[x+1][y-2] == zahl or s1[x-2][y-1] == zahl or s1[x-2][y-2] == zahl:
                 tempvar = False
-    elif x == 1 or x == 4 or x == 7:
-        if y == 0 or y == 3 or y == 6:
+    elif x == 1 or x == 4 or x == 7: #wenn sich zahl in der mitte vom block befindet
+        if y == 0 or y == 3 or y == 6: #mitte und links
             if s1[x-1][y+1] == zahl or s1[x-1][y+2] == zahl or s1[x+1][y+1] == zahl or s1[x+1][y+2] == zahl:
                 tempvar = False
-        if y == 1 or y == 4 or y == 7:
+        if y == 1 or y == 4 or y == 7: #mitte und mitte
             if s1[x-1][y-1] == zahl or s1[x-1][y+1] == zahl or s1[x+1][y-1] == zahl or s1[x+1][y+1] == zahl:
                 tempvar = False
-        if y == 2 or y == 5 or y == 8:
+        if y == 2 or y == 5 or y == 8: #mitte und rechts
             if s1[x-1][y-1] == zahl or s1[x-1][y-2] == zahl or s1[x+1][y-1] == zahl or s1[x+1][y-2] == zahl:
                 tempvar = False
-    elif x == 2 or x == 5 or x == 8:
-        if y == 0 or y == 3 or y == 6:
+    elif x == 2 or x == 5 or x == 8: #wenn sich zahl unten vom block befindet
+        if y == 0 or y == 3 or y == 6: #unten und links
             if s1[x-1][y+1] == zahl or s1[x-1][y+2] == zahl or s1[x-2][y+1] == zahl or s1[x-2][y-2] == zahl:
                 tempvar = False
-        if y == 1 or y == 4 or y == 7:
+        if y == 1 or y == 4 or y == 7: #unten und mitte
             if s1[x-1][y-1] == zahl or s1[x-2][y-1] == zahl or s1[x-1][y+1] == zahl or s1[x-2][y+1] == zahl:
                 tempvar = False
-        if y == 2 or y == 5 or y == 8:
+        if y == 2 or y == 5 or y == 8: #unten und rechts
             if s1[x-1][y-1] == zahl or s1[x-1][y-2] == zahl or s1[x-2][y-1] == zahl or s1[x-2][y-2] == zahl:
                 tempvar = False
     if tempvar == True:
@@ -148,37 +148,37 @@ def printsudokubox2():
 #Funktion um Zahl ins ausgewähltes Feld einzutragen
 def Spieler1():
     print("\u001b[34;1m"+Spieler1name+"\033[0m","ist dran!")
-    printsudokubox2()
-    while True:
+    printsudokubox2() #printet erstmal sudokubox aus 
+    while True: 
         try:
-            auswahl = int(input("Was möchten Sie tun?\n1.Zahl eintragen\n2.Zahl löschen\n3.Passen\n4.Aufgeben "))
+            auswahl = int(input("Was möchten Sie tun?\n1.Zahl eintragen\n2.Zahl löschen\n3.Passen\n4.Aufgeben ")) #abfrage welche Option
         except ValueError:
-            print("\u001b[31;1m"+"Bitte nur Zahlen zwischen 1-4 eingeben"+"\033[0m")
+            print("\u001b[31;1m"+"Bitte nur Zahlen zwischen 1-4 eingeben"+"\033[0m") #catcht error meldung
             continue
         break
-    if auswahl == 1:
+    if auswahl == 1: #wenn 1 eingegeben wurde wird das ausgeführt
         while True:
             try:
-                zeile = int(input("Welche Zeile? 1-9 ")) -1
+                zeile = int(input("Welche Zeile? 1-9 ")) -1 #-1 weil der Spieler nichts vom Index 0-8 der Liste weiß. Er kennt nur Zeile 1-9 und gibt deshalb auch 1-9 ein
                 spalte = int(input("Welche Spalte? 1-9 ")) -1
                 eingabezahl = int(input("Welche Zahl 1-9 "))
             except ValueError:
-                print("\u001b[31;1m"+"Bitte nur Zahlen eingeben"+"\033[0m")
+                print("\u001b[31;1m"+"Bitte nur Zahlen eingeben"+"\033[0m") #catcht error
                 continue
             break
-        if zeile < 0 or zeile > 8 or spalte < 0 or spalte > 8:
+        if zeile < 0 or zeile > 8 or spalte < 0 or spalte > 8: #catcht error
             print("\u001b[31;1m"+"Bitte Zahl zwischen 1 und 9 eingeben"+"\033[0m")
             Spieler1()
 
-        if s1[zeile][spalte] ==0:
-            if kontrolleFeld(zeile,spalte,eingabezahl)==True:
-                if eingabezahl > 0 and eingabezahl < 10:
-                    s1[zeile][spalte]=eingabezahl
+        if s1[zeile][spalte] == 0: #wenn das Feld keine Zahl ist also noch nicht ausgefüllt würde
+            if kontrolleFeld(zeile,spalte,eingabezahl)==True: #kontrolliert ob die eingegebene zahl im feld konsistent bzw richtig ist
+                if eingabezahl > 0 and eingabezahl < 10: #catcht fehlermerldung
+                    s1[zeile][spalte]=eingabezahl 
                     printsudokubox2()
-                    if checkSudokuBox(s1):
+                    if checkSudokuBox(s1): #checkt ob sudokubox komplett fertig ist
                         sudokugewonnen(1)
                     else:
-                        Spieler2()
+                        Spieler2() #spieler 2 ist dran
                 else:
                     print("\u001b[31;1m"+"Bitte Zahl zwischen 1 und 9 eingeben"+"\033[0m")
                     Spieler1()
@@ -203,27 +203,27 @@ def Spieler1():
             print("\u001b[31;1m"+"Bitte Zahl zwischen 1 und 9 eingeben."+"\033[0m")
             Spieler1()
             
-        if dataX[zeile][spalte]==0:
-                s1[zeile][spalte]=0
+        if dataX[zeile][spalte]==0: #guckt ob das Feld Anfangs vorgegeben war oder nicht weil es 0 wäre dann
+                s1[zeile][spalte]=0 #setzt das jeweilige Feld dann auf 0
                 Spieler1()
         else:
-            print("\u001b[31;1m"+"Vorgegebene Zahlen dürfen nicht gelöscht werden!"+"\033[0m")
+            print("\u001b[31;1m"+"Vorgegebene Zahlen dürfen nicht gelöscht werden!"+"\033[0m") #wenn es nicht 0 ist dann war das feld vorgegeben
             Spieler1()
-    elif auswahl == 3:
+    elif auswahl == 3: #übergibt den Zug an Spieler 2
         print("Du übergibst dein Zug an",Spieler2name)
         Spieler2()
     elif auswahl == 4:
-        sudokugewonnen(2)
+        sudokugewonnen(2) #wenn man aufgibt gewinnt Spieler 2
     else:
-        print("\u001b[31;1m"+"Bitte Zahl zwischen 1 und 4 eingeben"+"\033[0m")
+        print("\u001b[31;1m"+"Bitte Zahl zwischen 1 und 4 eingeben"+"\033[0m") #Wenn man Anfangs sich nicht für Option 1-4 entscheidet und eine andere Zahl eingibt wird Funktion von neu wiederholt
         Spieler1()
 
-def Spieler2():
+def Spieler2(): #genau das gleiche wie bei Spieler1() nur anders herum mit der Spieler1() und Spieler2() funktion
     print("\u001b[34;1m"+Spieler2name+"\033[0m","ist dran!")
     printsudokubox2()
     while True:
         try:
-            auswahl = int(input("Was möchten Sie tun?\n1.Zahl eintragen\n2.Zahl löschen\n3.Passen\n4.Aufgeben"))
+            auswahl = int(input("Was möchten Sie tun?\n1.Zahl eintragen\n2.Zahl löschen\n3.Passen\n4.Aufgeben "))
         except ValueError:
             print("\u001b[31;1m"+"Bitte nur Zahlen zwischen 1-4 eingeben"+"\033[0m")
             continue
@@ -280,7 +280,7 @@ def Spieler2():
         else:
             print("\u001b[31;1m"+"Vorgegebene Zahlen dürfen nicht gelöscht werden!"+"\033[0m")
             Spieler2()
-    elif auswahl == 3:
+    elif auswahl == 3: 
         print("Du übergibst dein Zug an",Spieler2name)
         Spieler1()
     elif auswahl == 4:
@@ -291,27 +291,22 @@ def Spieler2():
 
 
 def sudokugewonnen(x):
-    if x == 1:
+    if x == 1: #wenn Spieler 1 gewonnen hat wird das ausgeführt
         zeitmessung_ende_spieler1 = datetime.datetime.now()
-        print("\033[1;96m"+"###############################################")
+        print("\033[1;96m"+"###############################################") #Zeit wird nochmal gespeichert und die differenz wird gebildet und in Sekunden ausgegeben sowie Farbig
         print("\033[1;96m"+Spieler1name,"HAT GEWONNEN und dafür",round(timedelta.total_seconds(zeitmessung_ende_spieler1-zeitmessung_anfang_spieler1)),"Sekunden gebraucht!")
         print("\033[1;96m"+"###############################################")
 
-    else:
+    else: #wenn spieler2 gewonnen hat
         zeitmessung_ende_spieler2 = datetime.datetime.now()
-        print("\033[1;96m"+"###############################################")
+        print("\033[1;96m"+"###############################################") 
         print("\033[1;96m"+Spieler2name,"HAT GEWONNEN und dafür",round(timedelta.total_seconds(zeitmessung_ende_spieler2-zeitmessung_anfang_spieler2)),"Sekunden gebraucht!")
         print("\033[1;96m"+"###############################################")
 
-
+#AUSFÜHRUNG DES CODES
 Spieler1name = input("Name des 1. Spielers eingeben: ")
 Spieler2name = input("Name des 2. Spielers eingeben: ")
 auslesenUNDerstellen()
-zeitmessung_anfang_spieler1 = datetime.datetime.now()
-zeitmessung_anfang_spieler2 = zeitmessung_anfang_spieler1  
+zeitmessung_anfang_spieler1 = datetime.datetime.now() #Zeit zum Zeitpunkt des Spielstarts wird gespeichert
+zeitmessung_anfang_spieler2 = zeitmessung_anfang_spieler1  #ebenso für Spieler 2
 Spieler1()
-
-
-#90% FERTIG
-#to-dolist
-#INTERPROZESSKOMMUNIKATION
