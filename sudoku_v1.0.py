@@ -248,7 +248,7 @@ def Spieler2(): #genau das gleiche wie bei Spieler1() nur anders herum mit der S
                     s1[zeile][spalte]=eingabezahl
                     printsudokubox2()
                     if checkSudokuBox(s1):
-                        sudokugewonnen(1)
+                        sudokugewonnen(2)
                     else:
                         Spieler1()
                 else:
