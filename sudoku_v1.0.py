@@ -170,7 +170,7 @@ def Spieler1():
             print("\u001b[31;1m"+"Bitte Zahl zwischen 1 und 9 eingeben"+"\033[0m")
             Spieler1()
 
-        if s1[zeile][spalte] == 0: #wenn das Feld keine Zahl ist also noch nicht ausgefüllt würde
+        if s1[zeile][spalte] == 0: #wenn das Feld keine Zahl ist also noch nicht ausgefüllt wurde
             if kontrolleFeld(zeile,spalte,eingabezahl)==True: #kontrolliert ob die eingegebene zahl im feld konsistent bzw richtig ist
                 if eingabezahl > 0 and eingabezahl < 10: #catcht fehlermerldung
                     s1[zeile][spalte]=eingabezahl 
