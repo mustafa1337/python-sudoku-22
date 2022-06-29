@@ -281,7 +281,7 @@ def Spieler2(): #genau das gleiche wie bei Spieler1() nur anders herum mit der S
             print("\u001b[31;1m"+"Vorgegebene Zahlen dürfen nicht gelöscht werden!"+"\033[0m")
             Spieler2()
     elif auswahl == 3: 
-        print("Du übergibst dein Zug an",Spieler2name)
+        print("Du übergibst dein Zug an",Spieler1name)
         Spieler1()
     elif auswahl == 4:
         sudokugewonnen(1)
